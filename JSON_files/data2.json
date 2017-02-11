@@ -1,0 +1,14 @@
+{
+	"data" : [
+		{
+			"nom" : "Numéro commande",
+			"position_debut" : 0,
+			"position_fin" : 7
+		},
+		{
+			"nom" : "Type",
+			"position_debut" : 8,
+			"position_fin" : 10
+		}
+	]
+}

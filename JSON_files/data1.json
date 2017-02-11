@@ -1,0 +1,19 @@
+{
+	"data" : [
+		{
+			"nom" : "UF",
+			"position_debut" : 0,
+			"position_fin" : 3
+		},
+		{
+			"nom" : "Marché",
+			"position_debut" : 4,
+			"position_fin" : 7
+		},
+		{
+			"nom" : "Produit",
+			"position_debut" : 8,
+			"position_fin" : 11
+		}
+	]
+}
