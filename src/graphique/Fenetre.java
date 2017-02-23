@@ -18,6 +18,12 @@ public class Fenetre extends JFrame{
 	private int height = 480;
 
 	private String title = "Gestion de données";
+
+	private JPanel jPanel = new JPanel(new MigLayout("debug, fillx, wrap"));
+	private JPanel jPanelChamps = new JPanel();
+
+	private JPanel jPanelEntete = new JPanel(new MigLayout("debug, fillx, wrap"));			// Panel contenant la ligne de donnees + les deux boutons de conversion
+	private JPanel jPanelLigne = new JPanel(new MigLayout("debug, fillx"));			// Panel qui va contenir le label + la ligne de données
 	
 	/**
 	 * Constructeur
@@ -28,20 +34,17 @@ public class Fenetre extends JFrame{
 		this.setSize(width, height);
 		this.setTitle(title);
 		
-		JPanel jPanel = new JPanel(new MigLayout("debug, fillx, wrap"));
 		this.add(jPanel);
 	
-		JPanel jPanelEntete = new JPanel(new MigLayout("debug, fillx, wrap"));			// Panel contenant la ligne de donnees + les deux boutons de conversion
-
-		JPanel jPanelLigne = new JPanel(new MigLayout("debug, fillx"));			// Panel qui va contenir la ligne de données
 		JLabel jlLigne = new JLabel("Ligne : ");	// Création du label : "Ligne : "
 		jPanelLigne.add(jlLigne);
 		jPanelEntete.add(jPanelLigne);
 
 		JTextField jTextFieldNom = new JTextField();
-		Dimension preferredSize = new Dimension(100, 20);
+		Dimension preferredSize = new Dimension(1000, 20);
 		jTextFieldNom.setPreferredSize(preferredSize);
-		jPanelLigne.add(jTextFieldNom, "grow");
+		//jTextFieldNom.isEditable();					// Peut servir !
+		jPanelLigne.add(jTextFieldNom, "growx");		// deja teste avec grow mais pas genial
 
 		JPanel jPanelBoutons = new JPanel();
 
@@ -51,11 +54,30 @@ public class Fenetre extends JFrame{
 		jPanelBoutons.add(jbGenLigne);
 		jPanelEntete.add(jPanelBoutons);
 		
-		JPanel jPanelChamps = new JPanel();
 		//JPanel jPanelChamp = new JPanel();
 		
 		jPanel.add(jPanelEntete, "growx");
 
 		jPanel.add(jPanelChamps);
+		
+ 	}
+	
+	/**
+	 * Methode qui permet d'ajouter un champ par 
+	 * information (ligne) lue dans le fichier JSON
+	 */
+	public void ajouterUnChamp(String nom){
+		
+		JLabel jlLigne = new JLabel("Ligne : ");	// Création du label : "Ligne : "
+		jPanelLigne.add(jlLigne);
+		jPanelEntete.add(jPanelLigne);
+
+		JTextField jTextFieldNom = new JTextField();
+		Dimension preferredSize = new Dimension(1000, 20);
+		jTextFieldNom.setPreferredSize(preferredSize);
+		//jTextFieldNom.isEditable();					// Peut servir !
+		jPanelLigne.add(jTextFieldNom, "growx");		// deja teste avec grow mais pas genial
+		
+		//this.jPanel.
 	}
 }

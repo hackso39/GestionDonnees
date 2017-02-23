@@ -23,11 +23,61 @@ public class Launcher {
 	public static void main(String[] args) {
 //		lanceur1();
 //		lanceur2();
-		lanceur3();
+//		lanceur3();
+		lanceur4();
 //		System.exit(0);
 	}
 
+	private static void lanceur4() {
+		/**
+		 * Principe :
+		 * - lire les donnees du fichier JSON, 	
+		 * - creer la fenêtre
+		 * - creer autant de ligne dans la fenetre qu'il y a de champ dans le fichier
+		 */
+		DonneesBrutes donneesBrutes = new DonneesBrutes();
+		
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		
+		List<Parametres> parametres = new ArrayList<Parametres>();
+		try {
+			parametres.addAll(OperationsSurDonnees.lectureDonneesDepuisFichierJSON("C:\\WorkSpace\\GestionDonnees\\JSON_files\\data1.json"));
+					
+		} catch (GestionDonnesExceptions e) {
+			System.out.println("Problème de lecture du fichier JSON.");
+		}
+		
+		System.out.println("Veuillez renseigner les différents champs :");
+		String chaineDonneesBrutes = "";
+		
+		Fenetre fen = new Fenetre();
+		for(int i = 0 ; i < parametres.size() ; i++) {
+			int nbCar = (parametres.get(i).getPosition_fin() - parametres.get(i).getPosition_debut()) + 1;
+			System.out.print(parametres.get(i).getNom() + " (" + nbCar + " caractère(s) maximum) : " );
+			
+			String temp = sc.nextLine();
+			chaineDonneesBrutes = chaineDonneesBrutes + temp;
+			
+			// Creer un champ avec getNom present dans parametre
+			
+			
+		}
+		donneesBrutes.setDonneesBrutes(chaineDonneesBrutes);
+		
+		System.out.println(donneesBrutes.getDonneesBrutes());
+		
+		fen.setVisible(true);
+		fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+	}
+
+	/**
+	 * Lanceur3 pour test de la fenetre mise en place
+	 */
 	private static void lanceur3() {
+		
 		Fenetre fen = new Fenetre();
 		fen.setVisible(true);
 		fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
