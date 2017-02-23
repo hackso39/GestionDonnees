@@ -60,7 +60,7 @@ public class Launcher {
 			chaineDonneesBrutes = chaineDonneesBrutes + temp;
 			
 			// Creer un champ avec getNom present dans parametre
-			
+			fen.ajouterUnChamp(parametres.get(i).getNom());
 			
 		}
 		donneesBrutes.setDonneesBrutes(chaineDonneesBrutes);

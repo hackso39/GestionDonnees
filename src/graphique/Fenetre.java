@@ -19,11 +19,10 @@ public class Fenetre extends JFrame{
 
 	private String title = "Gestion de données";
 
-	private JPanel jPanel = new JPanel(new MigLayout("debug, fillx, wrap"));
-	private JPanel jPanelChamps = new JPanel();
-
-	private JPanel jPanelEntete = new JPanel(new MigLayout("debug, fillx, wrap"));			// Panel contenant la ligne de donnees + les deux boutons de conversion
-	private JPanel jPanelLigne = new JPanel(new MigLayout("debug, fillx"));			// Panel qui va contenir le label + la ligne de données
+	private JPanel jPanel;
+	private JPanel jPanelEntete;
+	private JPanel jPanelLigne;
+	private JPanel jPanelChamps;
 	
 	/**
 	 * Constructeur
@@ -31,34 +30,43 @@ public class Fenetre extends JFrame{
 	public Fenetre() {
 		super();
 
-		this.setSize(width, height);
-		this.setTitle(title);
+		this.setSize(this.width, this.height);
+		this.setTitle(this.title);
 		
-		this.add(jPanel);
-	
+		// Création du panel ligne
+		this.jPanelLigne = new JPanel(new MigLayout("debug, fillx"));			// Panel qui va contenir le label + la ligne de données
 		JLabel jlLigne = new JLabel("Ligne : ");	// Création du label : "Ligne : "
-		jPanelLigne.add(jlLigne);
-		jPanelEntete.add(jPanelLigne);
-
-		JTextField jTextFieldNom = new JTextField();
+		this.jPanelLigne.add(jlLigne);
 		Dimension preferredSize = new Dimension(1000, 20);
+		JTextField jTextFieldNom = new JTextField();
 		jTextFieldNom.setPreferredSize(preferredSize);
+		this.jPanelLigne.add(jTextFieldNom, "growx");		// deja teste avec grow mais pas genial
+		
+
 		//jTextFieldNom.isEditable();					// Peut servir !
-		jPanelLigne.add(jTextFieldNom, "growx");		// deja teste avec grow mais pas genial
 
+		// Création du panel boutons
 		JPanel jPanelBoutons = new JPanel();
-
 		JButton jbGenValeurs = new JButton("Ligne => Valeur");
 		jPanelBoutons.add(jbGenValeurs);
 		JButton jbGenLigne = new JButton("Valeur => Ligne");
 		jPanelBoutons.add(jbGenLigne);
-		jPanelEntete.add(jPanelBoutons);
+
+		// Création du panel entête
+		this.jPanelEntete = new JPanel(new MigLayout("debug, fillx, wrap"));			// Panel contenant la ligne de donnees + les deux boutons de conversion
+		this.jPanelEntete.add(this.jPanelLigne);
+		this.jPanelEntete.add(jPanelBoutons);
 		
 		//JPanel jPanelChamp = new JPanel();
 		
-		jPanel.add(jPanelEntete, "growx");
-
-		jPanel.add(jPanelChamps);
+		// Création du panel champs
+		this.jPanelChamps = new JPanel(new MigLayout("debug, fillx, wrap"));
+		
+		// Création du panel principal
+		this.jPanel = new JPanel(new MigLayout("debug, fillx, wrap"));
+		this.add(this.jPanel);
+		this.jPanel.add(this.jPanelEntete, "growx");
+		this.jPanel.add(this.jPanelChamps); 
 		
  	}
 	
@@ -68,15 +76,17 @@ public class Fenetre extends JFrame{
 	 */
 	public void ajouterUnChamp(String nom){
 		
-		JLabel jlLigne = new JLabel("Ligne : ");	// Création du label : "Ligne : "
-		jPanelLigne.add(jlLigne);
-		jPanelEntete.add(jPanelLigne);
-
+		JPanel jPanelChamp = new JPanel(new MigLayout("debug, fillx"));
+		JLabel jlLigne = new JLabel(nom);	// Création du label qui contiendra le nom du champ
+//		this.jPanelLigne.add(jlLigne);
+//		this.jPanelEntete.add(this.jPanelLigne);
+		jPanelChamp.add(jlLigne);
 		JTextField jTextFieldNom = new JTextField();
 		Dimension preferredSize = new Dimension(1000, 20);
 		jTextFieldNom.setPreferredSize(preferredSize);
 		//jTextFieldNom.isEditable();					// Peut servir !
-		jPanelLigne.add(jTextFieldNom, "growx");		// deja teste avec grow mais pas genial
+		jPanelChamp.add(jTextFieldNom, "growx");		// deja teste avec grow mais pas genial
+		this.jPanelChamps.add(jPanelChamp);
 		
 		//this.jPanel.
 	}
