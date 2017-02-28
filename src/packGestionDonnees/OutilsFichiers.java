@@ -12,11 +12,11 @@ import org.json.simple.parser.ParseException;
  * 		Cette classe permet de réaliser des opérations sur les 
  * 		fichiers comme par exemple la lecture.
  */
-public class OutilFichiers {
+public class OutilsFichiers {
 	/**
 	 * Constructeur par défaut
 	 */
-	public OutilFichiers() {
+	public OutilsFichiers() {
 		super();
 	}
 

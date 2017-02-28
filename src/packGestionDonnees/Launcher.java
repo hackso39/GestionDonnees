@@ -21,11 +21,31 @@ public class Launcher {
 	 * 9611pub A49F
 	 */
 	public static void main(String[] args) {
-//		lanceur1();
-//		lanceur2();
-//		lanceur3();
-		lanceur4();
+//		lanceur1();	// Chargement du fic JSON avec affichage en console des éléments contenus dedans
+//		lanceur2();	// Chargement du fic JSON, affichage en console amélioré des éléments contenus dedans  
+//		lanceur3(); // Affichage d'une fenêtre en vue de mettre en place l'IHM de l'application
+//		lanceur4();	// Chargement du fic JSON + Affichage dans l'IHM des noms des rubriques (Ex de champs : UF, Marché, Produit)
+		lanceur5();	// Prévu : Chargement fic JSON + IHM avec conversion Ligne répartie dans les champs lorsque clic sur bouton
+		
 //		System.exit(0);
+	}
+
+	private static void lanceur5() {
+
+		/**
+		 * Principe :
+		 * - lire les donnees du fichier JSON, 	
+		 * - creer la fenêtre IHM
+		 * - saisir les données du champ : Ligne
+		 * - cliquer sur le bouton de conversion
+		 * - les champs sont alimentés et affichés dans l'IHM
+		 */
+		List<Parametres> parametres = new ArrayList<Parametres>();
+		parametres.addAll(OperationsSurDonnees.chargementParametres());
+		
+		Fenetre fen = new Fenetre(parametres);
+		fen.setVisible(true);
+		fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	private static void lanceur4() {
@@ -33,12 +53,12 @@ public class Launcher {
 		 * Principe :
 		 * - lire les donnees du fichier JSON, 	
 		 * - creer la fenêtre
-		 * - creer autant de ligne dans la fenetre qu'il y a de champ dans le fichier
+		 * - creer autant de ligne dans la fenetre qu'il y a de champs dans le fichier
 		 */
 		DonneesBrutes donneesBrutes = new DonneesBrutes();
 		
 		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);	// référence permettant la saisie des données dans les champs
 		
 		List<Parametres> parametres = new ArrayList<Parametres>();
 		try {
@@ -52,6 +72,8 @@ public class Launcher {
 		String chaineDonneesBrutes = "";
 		
 		Fenetre fen = new Fenetre();
+
+		// Parcours de tous les paramètres contenus dans le fichier JSON afin de calculer le nombre de caractères par champ
 		for(int i = 0 ; i < parametres.size() ; i++) {
 			int nbCar = (parametres.get(i).getPosition_fin() - parametres.get(i).getPosition_debut()) + 1;
 			System.out.print(parametres.get(i).getNom() + " (" + nbCar + " caractère(s) maximum) : " );
@@ -60,7 +82,7 @@ public class Launcher {
 			chaineDonneesBrutes = chaineDonneesBrutes + temp;
 			
 			// Creer un champ avec getNom present dans parametre
-			fen.ajouterUnChamp(parametres.get(i).getNom());
+			//fen.ajouterUnChamp(parametres.get(i).getNom(), parametres.get(i).getPosition_debut(), parametres.get(i).getPosition_fin());
 			
 		}
 		donneesBrutes.setDonneesBrutes(chaineDonneesBrutes);
@@ -69,8 +91,6 @@ public class Launcher {
 		
 		fen.setVisible(true);
 		fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
 	}
 
 	/**

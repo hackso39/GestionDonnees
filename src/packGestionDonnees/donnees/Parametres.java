@@ -15,6 +15,7 @@ public class Parametres {
 	private String nom = "";
 	private int position_debut = 0;
 	private int position_fin = 0;
+	private int nbrCaractParChamp = 0;
 
 	/**
 	 * Constructeur par défaut
@@ -42,5 +43,13 @@ public class Parametres {
 	}
 	public void setPosition_fin(int position_fin) {
 		this.position_fin = position_fin;
+	}
+
+	public int getNbrCaractParChamp() {
+		return nbrCaractParChamp;
+	}
+
+	public void setNbrCaractParChamp(int nbrCaractParChamp) {
+		this.nbrCaractParChamp = nbrCaractParChamp;
 	}
 }
