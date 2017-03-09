@@ -11,7 +11,7 @@ package packGestionDonnees.donnees;
  */
 public class ListeChamps {
 	
-	private String DonneeBrute = "";
+	private String DonneesBrute = "";
 	private String nomChamp = "";
 	private int position_debut = 0;
 	private int position_fin = 0;
@@ -26,11 +26,11 @@ public class ListeChamps {
 	}
 
 	public String getDonneeBrute() {
-		return DonneeBrute;
+		return DonneesBrute;
 	}
 
-	public void setDonneeBrute(String donneeBrute) {
-		DonneeBrute = donneeBrute;
+	public void setDonneeBrute(String donneesBrute) {
+		DonneesBrute = donneesBrute;
 	}
 	
 	public String getNomChamp() {
