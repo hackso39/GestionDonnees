@@ -7,35 +7,37 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import core.exceptions.GestionDonnesExceptions;
+import packGestionDonnees.donnees.DonneesBrutes;
 import packGestionDonnees.donnees.Parametres;
 
-public abstract class  OperationsSurDonnees {
-	
+public abstract class OperationsSurDonnees {
 
 	public static List<Parametres> chargementParametres() {
-		
+
 		List<Parametres> parametres = new ArrayList<Parametres>();
-		
+
 		try {
-			parametres.addAll(OperationsSurDonnees.lectureDonneesDepuisFichierJSON("C:\\WorkSpace\\GestionDonnees\\JSON_files\\data1.json"));
-					
+			parametres.addAll(OperationsSurDonnees
+					.lectureDonneesDepuisFichierJSON("C:\\WorkSpace\\GestionDonnees\\JSON_files\\data1.json"));
+
 		} catch (GestionDonnesExceptions e) {
 			System.out.println("Problème de lecture du fichier JSON.");
 		}
-		
+
 		return parametres;
 	}
-	
+
 	/**
-	 * Cette méthode permet de créé une liste de données après avoir lu un fichier
-	 * au format JSON comportant différents types de jeux.
+	 * Cette méthode permet de créé une liste de données après avoir lu un
+	 * fichier au format JSON comportant différents types de jeux.
 	 * 
 	 * @param cheminFichier
 	 *            chemin du fichier au format JSON
 	 * @return List<Donnees> retourne une liste de Donnees
 	 * @throws GestionDonneesExceptions
 	 */
-	public static List<Parametres> lectureDonneesDepuisFichierJSON(String cheminFichier) throws GestionDonnesExceptions {
+	public static List<Parametres> lectureDonneesDepuisFichierJSON(String cheminFichier)
+			throws GestionDonnesExceptions {
 
 		JSONObject jsonObject = OutilsFichiers.lectureLigneJson(cheminFichier);
 		JSONArray jsonArray = (JSONArray) jsonObject.get("data");
@@ -43,53 +45,96 @@ public abstract class  OperationsSurDonnees {
 		return traitementDonnees(jsonObject, jsonArray);
 	}
 
-	private static List<Parametres> traitementDonnees(JSONObject jsonObject, JSONArray jsonArray) throws GestionDonnesExceptions {
-		
+	private static List<Parametres> traitementDonnees(JSONObject jsonObject, JSONArray jsonArray)
+			throws GestionDonnesExceptions {
+
 		List<Parametres> parametres = new ArrayList<Parametres>();
-		
+
 		// On récupère les données de "data" afin de les créer
 		if (jsonArray != null) {
 			for (int i = 0; i < jsonArray.size(); i++) {
-				//System.out.println(jsonArray.get(i));
+				// System.out.println(jsonArray.get(i));
 				jsonObject = (JSONObject) jsonArray.get(i);
 
 				String nom = (String) jsonObject.get("nom");
-				//System.out.println("Nom de la donnée : " + nom);
+				// System.out.println("Nom de la donnée : " + nom);
 
 				int position_debut = (int) (long) jsonObject.get("position_debut");
-				//System.out.println("Position début = " + position_debut);
+				// System.out.println("Position début = " + position_debut);
 
 				int position_fin = (int) (long) jsonObject.get("position_fin");
-				//System.out.println("position_fin = " + position_fin);
-				
+				// System.out.println("position_fin = " + position_fin);
+
 				Parametres donneesParam = new Parametres();
 				donneesParam.setNom(nom);
 				donneesParam.setPosition_debut(position_debut);
 				donneesParam.setPosition_fin(position_fin);
-				
+
 				// Calcul du nombre de caractères par champ
 				donneesParam.setNbrCaractParChamp((position_fin - position_debut) + 1);
 
 				parametres.add(donneesParam);
 			}
 		}
-		
+
 		return parametres;
-	}
-	
-	/**
-	 * cette méthode permet de convertir les donnees brutes provenant de la premiere ligne et
-	 *   d'alimenter les champs
-	 */
-	public static void convertLigneValeurs() {
-		
 	}
 
 	/**
-	 * cette méthode permet de convertir les donnees presentes dans les champs afin de générer la
-	 * première ligne de donnees brutes
+	 * Découpe une ligne en valeurs en suivant le modèle représenté par les
+	 * paramètres.
+	 * 
+	 * @param dB
+	 * @param params
+	 * @return
 	 */
-	public static void convertValeursLigne() {
+	public static List<String> decouper(DonneesBrutes dB, List<Parametres> params) {
+
+		List<String> listeDecoupee = new ArrayList<String>();
+
+		String ligne = dB.getDonneesBrutes();
+
+		for (Parametres parametre : params) {
+			
+			String resultat;
+			
+			if (parametre.getPosition_debut() > ligne.length()) {
+				resultat = "";
+			} else {
+				
+				int positionFinAUtiliser = parametre.getPosition_fin();
+				if (positionFinAUtiliser + 1 > ligne.length()) {
+					positionFinAUtiliser = ligne.length() - 1;
+				}
+
+				resultat = ligne.substring(parametre.getPosition_debut(), positionFinAUtiliser + 1);
+			}
+			
+			listeDecoupee.add(resultat);
+		}
+		return listeDecoupee;
+	}
+	
+	public static String assemblerChamps(List<Parametres> params, List<String> champs) {
+
+		String resultat = "";
 		
+		int tailleChamp = 0;
+		String espace = " ";
+		
+		// Pour chaque champ : concaténer la valeur dans résultat.
+		for(int i = 0 ; i < params.size() ; i++) {
+			
+			// Récupérer de la valeur courante avec espace
+			String champAvecEspace = champs.get(i);
+			tailleChamp = (params.get(i).getPosition_fin() - params.get(i).getPosition_debut()) + 1;
+			while(champAvecEspace.length() <  tailleChamp) {
+				champAvecEspace += espace;
+			}
+			
+			// Concaténation
+			resultat = resultat + champAvecEspace;
+		}
+		return resultat;
 	}
 }

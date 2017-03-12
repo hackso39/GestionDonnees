@@ -14,6 +14,11 @@
 			"nom" : "Produit",
 			"position_debut" : 8,
 			"position_fin" : 11
+		},
+		{
+			"nom" : "Catégorie",
+			"position_debut" : 12,
+			"position_fin" : 13
 		}
 	]
 }
