@@ -34,15 +34,5 @@ public class Affichage {
 		for (int i = 0; i < listeDecoupee.size(); i++) {
 			System.out.println(parametres.get(i).getNom() + " : " + listeDecoupee.get(i));
 		}
-
-		// for(int i = 0 ; i < parametres.size() ; i++) {
-		// param = parametres.get(i);
-		//
-		// String donnees =
-		// donneesBrutes.getDonneesBrutes().substring(param.getPosition_debut(),
-		// param.getPosition_fin() + 1);
-		//
-		// System.out.println(param.getNom() + " : " + donnees);
-		// }
 	}
 }

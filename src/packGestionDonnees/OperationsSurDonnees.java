@@ -10,6 +10,13 @@ import core.exceptions.GestionDonnesExceptions;
 import packGestionDonnees.donnees.DonneesBrutes;
 import packGestionDonnees.donnees.Parametres;
 
+/**
+ * Cette classe permet de réaliser des opérations sur les fichiers
+ * JSON, le parcours de noeuds, la lecture des données. Le découpage
+ * et l'assemblage des données brutes ou pour les champs est également
+ * réalisé dans cette classe. 
+ */
+
 public abstract class OperationsSurDonnees {
 
 	public static List<Parametres> chargementParametres() {
@@ -28,7 +35,7 @@ public abstract class OperationsSurDonnees {
 	}
 
 	/**
-	 * Cette méthode permet de créé une liste de données après avoir lu un
+	 * Cette méthode permet de créer une liste de données après avoir lu un
 	 * fichier au format JSON comportant différents types de jeux.
 	 * 
 	 * @param cheminFichier
@@ -45,6 +52,15 @@ public abstract class OperationsSurDonnees {
 		return traitementDonnees(jsonObject, jsonArray);
 	}
 
+	/**
+	 * Cette méthode permet de parcourir un fichier JSON contenant les paramètres afin 
+	 * de créer les champs dans l'application. Elle retourne la liste de ces paramètres.
+	 * 
+	 * @param jsonObject noeuds objets contenus dans le fichier JSON
+	 * @param jsonArray noeuds tableaux contenus dans le fichier JSON
+	 * @return List<Parametres> contient les paramètres concernant les champs affichés dans l'application.
+	 * @throws GestionDonnesExceptions 
+	 */
 	private static List<Parametres> traitementDonnees(JSONObject jsonObject, JSONArray jsonArray)
 			throws GestionDonnesExceptions {
 
@@ -81,12 +97,12 @@ public abstract class OperationsSurDonnees {
 	}
 
 	/**
-	 * Découpe une ligne en valeurs en suivant le modèle représenté par les
-	 * paramètres.
+	 * Découpe la première ligne (données brutes) en valeurs en suivant le modèle représenté par les
+	 * paramètres (champs).
 	 * 
 	 * @param dB
 	 * @param params
-	 * @return
+	 * @return List<String> contient la liste des valeurs à afficher après le nom du champ concerné.
 	 */
 	public static List<String> decouper(DonneesBrutes dB, List<Parametres> params) {
 
@@ -115,6 +131,14 @@ public abstract class OperationsSurDonnees {
 		return listeDecoupee;
 	}
 	
+	/**
+	 * Cette méthode permet de réunir tous les champs dans une seule String qui sera
+	 * ensuite affichée dans la première ligne de l'application.
+	 * 
+	 * @param params contient la liste des paramètres contenus dans le fichier JSON
+	 * @param champs contient la liste de tous les champs (format String)
+	 * @return String contient la chaine de tous les champs concaténés
+	 */
 	public static String assemblerChamps(List<Parametres> params, List<String> champs) {
 
 		String resultat = "";
@@ -125,7 +149,7 @@ public abstract class OperationsSurDonnees {
 		// Pour chaque champ : concaténer la valeur dans résultat.
 		for(int i = 0 ; i < params.size() ; i++) {
 			
-			// Récupérer de la valeur courante avec espace
+			// Récupérer la valeur courante avec espace
 			String champAvecEspace = champs.get(i);
 			tailleChamp = (params.get(i).getPosition_fin() - params.get(i).getPosition_debut()) + 1;
 			while(champAvecEspace.length() <  tailleChamp) {

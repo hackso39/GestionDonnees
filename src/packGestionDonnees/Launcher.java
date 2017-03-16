@@ -13,33 +13,35 @@ import graphique.Fenetre;
 import packGestionDonnees.donnees.Parametres;
 import packGestionDonnees.donnees.DonneesBrutes;
 
+/**
+ * Classe permettant de lancer l'application GestionDonnees. 
+ */
 public class Launcher {
 
-	/* pour test : 
-	 * aaaabbbbccccdddd
-	 * 9611publA49F
-	 * 9611pub A49F
+	/**
+	 * Méthode : main
+	 * @param args
 	 */
 	public static void main(String[] args) {
 //		lanceur1();	// Chargement du fic JSON avec affichage en console des éléments contenus dedans
 //		lanceur2();	// Chargement du fic JSON, affichage en console amélioré des éléments contenus dedans  
 //		lanceur3(); // Affichage d'une fenêtre en vue de mettre en place l'IHM de l'application
 //		lanceur4();	// Chargement du fic JSON + Affichage dans l'IHM des noms des rubriques (Ex de champs : UF, Marché, Produit)
-		lanceur5();	// Prévu : Chargement fic JSON + IHM avec conversion Ligne répartie dans les champs lorsque clic sur bouton
-		
-//		System.exit(0);
+		lanceur5();	// Chargement fic JSON + IHM avec conversion Ligne répartie dans les champs lorsque clic sur bouton
 	}
 
+	/**
+	 * Lanceur 5
+ 	 * 
+ 	 * Principe :
+	 * - lire les donnees contenues dans le fichier JSON, 	
+	 * - creer la fenêtre IHM,
+	 * - saisir les données du champ : Ligne,
+	 * - cliquer sur le bouton de conversion,
+	 * - les champs sont alimentés et affichés dans l'IHM.
+	 */
 	private static void lanceur5() {
 
-		/**
-		 * Principe :
-		 * - lire les donnees du fichier JSON, 	
-		 * - creer la fenêtre IHM
-		 * - saisir les données du champ : Ligne
-		 * - cliquer sur le bouton de conversion
-		 * - les champs sont alimentés et affichés dans l'IHM
-		 */
 		List<Parametres> parametres = new ArrayList<Parametres>();
 		parametres.addAll(OperationsSurDonnees.chargementParametres());
 		
@@ -48,13 +50,16 @@ public class Launcher {
 		fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Lanceur 4
+	 * 
+	 * Principe :
+	 * - lire les donnees du fichier JSON, 	
+	 * - creer la fenêtre
+	 * - creer autant de ligne dans la fenetre qu'il y a de champs dans le fichier
+	 */
 	private static void lanceur4() {
-		/**
-		 * Principe :
-		 * - lire les donnees du fichier JSON, 	
-		 * - creer la fenêtre
-		 * - creer autant de ligne dans la fenetre qu'il y a de champs dans le fichier
-		 */
+		
 		DonneesBrutes donneesBrutes = new DonneesBrutes();
 		
 		@SuppressWarnings("resource")
@@ -103,6 +108,9 @@ public class Launcher {
 		fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Lanceur 2
+	 */
 	private static void lanceur2() {
 		
 		DonneesBrutes donneesBrutes = new DonneesBrutes();
@@ -133,6 +141,9 @@ public class Launcher {
 		System.out.println(donneesBrutes.getDonneesBrutes());
 	}
 
+	/**
+	 * Lanceur 1
+	 */
 	private static void lanceur1() {
 		
 		DonneesBrutes donneesBrutes = new DonneesBrutes();
